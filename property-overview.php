@@ -21,7 +21,7 @@
  *
  *
  * @version 1.4
- * @author Andy Potanin <andy.potnain@twincitiestech.com>
+ * @author Andy Potanin <info@usabilitydynamics.com>
  * @package WP-Property
 */?>
 <?php

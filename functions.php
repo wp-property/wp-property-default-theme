@@ -2,10 +2,10 @@
 /**
  * Functions to be used in templates.  Overrided by anything in template functions.php
  *
- * Copyright 2010 Andy Potanin <andy.potanin@twincitiestech.com>
+ * Copyright 2010-2014 Usability Dynamics, Inc. <info@usabilitydynamics.com>
  *
  * @version 1.4
- * @author Andy Potanin <andy.potnain@twincitiestech.com>
+ * @author Andy Potanin <info@usabilitydynamics.com>
  * @package WP-Property
  */
 if ( !function_exists( 'wpp_alternating_row' ) ) {

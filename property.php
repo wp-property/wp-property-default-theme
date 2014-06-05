@@ -13,7 +13,7 @@
  * Copyright 2010 Andy Potanin <andy.potanin@twincitiestech.com>
  *
  * @version 1.3
- * @author Andy Potanin <andy.potnain@twincitiestech.com>
+ * @author Andy Potanin <info@usabilitydynamics.com>
  * @package WP-Property
 */
 

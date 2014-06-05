@@ -1,1 +1,2 @@
-* The /templates directory is in-place to emulate legacy WP-Property structure.
+### Requirements
+* Must resolve public URL to assets when invoked from plugin and/or theme directory.
