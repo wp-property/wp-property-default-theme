@@ -1,0 +1,38 @@
+{
+  "name": "wp-property/default-theme",
+  "version": "0.1.0",
+  "description": "-",
+  "author": {
+    "name": "Usability Dynamics",
+    "url": "http://UsabilityDynamics.com"
+  },
+  "license": "GPL-2.0",
+  "type": "wordpress-theme",
+  "require": {
+    "php": ">=5.3",
+    "usabilitydynamics/lib-installer": "master"
+  },
+  "license_url": "http://www.gnu.org/licenses/gpl-2.0.html",
+  "tags": [
+    "one-column",
+    "two-column",
+    "translation-ready",
+    "responsive",
+    "wordpress",
+    "theme"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/UsabilityDynamics/wp-realty-default-theme.git"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "http://repository.usabilitydynamics.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "extra": {
+    "installer-name": "default-theme"
+  }
+}

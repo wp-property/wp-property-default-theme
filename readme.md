@@ -1,0 +1,1 @@
+* The /templates directory is in-place to emulate legacy WP-Property structure.
