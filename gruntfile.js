@@ -9,31 +9,12 @@
  */
 module.exports = function( grunt ) {
 
+  // Require Utility Modules.
+  var joinPath      = require( 'path' ).join;
+
   grunt.initConfig( {
     
     pkg: grunt.file.readJSON( 'package.json' ),
-    
-    requirejs: {
-      dev: {
-        options: {
-          name: 'app',
-          baseUrl: 'scripts/src',
-          out: "scripts/app.js"
-        }
-      },
-      build: {
-        options: {
-          name: 'app',
-          baseUrl: 'scripts/src',
-          out: "scripts/app.dev.js",
-          uglify: {
-            beautify: true,
-            max_line_length: 1000,
-            no_mangle: true
-          }
-        }
-      }
-    },
     
     yuidoc: {
       compile: {
@@ -56,9 +37,15 @@ module.exports = function( grunt ) {
           relativeUrls: true
         },
         files: {
-          'styles/app.css': [
-            'styles/src/app.less'
-          ]
+          'styles/wp_properties.css': [ 'styles/src/wp_properties.less' ],
+          'styles/wp_properties-ie_7.css': [ 'styles/src/wp_properties-ie_7.less' ],
+          'styles/wp_properties-msie.css': [ 'styles/src/wp_properties-msie.less' ],
+          
+          'styles/theme-specific/denali.css': [ 'styles/src/theme-specific/denali.less' ],
+          'styles/theme-specific/fb_properties.css': [ 'styles/src/theme-specific/fb_properties.less' ],
+          'styles/theme-specific/twentyeleven.css': [ 'styles/src/theme-specific/twentyeleven.less' ],
+          'styles/theme-specific/twentyten.css': [ 'styles/src/theme-specific/twentyten.less' ],
+          'styles/theme-specific/twentytwelve.css': [ 'styles/src/theme-specific/twentytwelve.less' ]
         }
       },
       development: {
@@ -66,41 +53,54 @@ module.exports = function( grunt ) {
           relativeUrls: true
         },
         files: {
-          'styles/app.dev.css': [
-            'styles/src/app.less'
-          ]
-        }
-      },
-      editor: {
-        options: {
-          relativeUrls: true
-        },
-        files: {
-          'styles/editor-style.css': [
-            'styles/src/editor-style.less'
-          ]
+          'styles/wp_properties.dev.css': [ 'styles/src/wp_properties.less' ],
+          'styles/wp_properties-ie_7.dev.css': [ 'styles/src/wp_properties-ie_7.less' ],
+          'styles/wp_properties-msie.dev.css': [ 'styles/src/wp_properties-msie.less' ],
+          
+          'styles/theme-specific/denali.dev.css': [ 'styles/src/theme-specific/denali.less' ],
+          'styles/theme-specific/fb_properties.dev.css': [ 'styles/src/theme-specific/fb_properties.less' ],
+          'styles/theme-specific/twentyeleven.dev.css': [ 'styles/src/theme-specific/twentyeleven.less' ],
+          'styles/theme-specific/twentyten.dev.css': [ 'styles/src/theme-specific/twentyten.less' ],
+          'styles/theme-specific/twentytwelve.dev.css': [ 'styles/src/theme-specific/twentytwelve.less' ]
         }
       }
     },
     
+    // Minify Core and Template Scripts.
     uglify: {
       production: {
-        files: {
-          'scripts/app.js': [
-            'scripts/src/app.js'
-          ]
-        }
+        options: {
+          mangle: false,
+          beautify: false
+        },
+        files: [
+          {
+            expand: true,
+            cwd: 'scripts/src',
+            src: [ '*.js' ],
+            dest: 'scripts',
+            rename: function renameScript( dest, src ) {
+              return joinPath( dest, src.replace( '.js', '.js' ) );
+            }
+          }
+        ]
       },
       development: {
         options: {
           mangle: false,
           beautify: true
         },
-        files: {
-          'scripts/app.dev.js': [
-            'scripts/src/app.js'
-          ]
-        }
+        files: [
+          {
+            expand: true,
+            cwd: 'scripts/src',
+            src: [ '*.js' ],
+            dest: 'scripts',
+            rename: function renameScript( dest, src ) {
+              return joinPath( dest, src.replace( '.js', '.dev.js' ) );
+            }
+          }
+        ]
       }
     },
     
@@ -122,35 +122,12 @@ module.exports = function( grunt ) {
         ],
         tasks: [ 'uglify' ]
       }
-    },
-    
-    markdown: {
-      all: {
-        files: [
-          {
-            expand: true,
-            src: 'readme.md',
-            dest: 'static/',
-            ext: '.html'
-          }
-        ],
-        options: {
-          markdownOptions: {
-            gfm: true,
-            codeLines: {
-              before: '<span>',
-              after: '</span>'
-            }
-          }
-        }
-      }
     }
     
   });
 
   // Load tasks
   grunt.loadNpmTasks( 'grunt-markdown' );
-  grunt.loadNpmTasks( 'grunt-requirejs' );
   grunt.loadNpmTasks( 'grunt-spritefiles' );
   grunt.loadNpmTasks( 'grunt-contrib-symlink' );
   grunt.loadNpmTasks( 'grunt-contrib-yuidoc' );
@@ -160,24 +137,18 @@ module.exports = function( grunt ) {
 
   // Build Assets
   grunt.registerTask( 'default', [
-    //'yuidoc',
-    //'markdown',
     'less',
-    'requirejs'
+    'uglify'
   ]);
 
   grunt.registerTask( 'distribution', [
     'less',
-    'requirejs'
+    'uglify'
   ]);
-
-  // Run Tests
-  grunt.registerTask( 'test', [] );
 
   // Update Documentation
   grunt.registerTask( 'document', [
-    'yuidoc',
-    'markdown'
+    'yuidoc'
   ]);
 
   // Update Environment
